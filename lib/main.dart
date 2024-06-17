@@ -1,5 +1,8 @@
-import './components/transaction_user.dart';
+import 'package:app_despesas_pessoais/components/transaction_form.dart';
+import './components/transaction_list.dart';
 import 'package:flutter/material.dart';
+import './models/transaction.dart';
+import 'dart:math';
 
 void main() {
   runApp(const ExpensesAppp());
@@ -23,8 +26,49 @@ class ExpensesAppp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Novo Tênis de corrida',
+      value: 310.76,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de Luz',
+      value: 211.30,
+      date: DateTime.now(),
+    )
+  ];
+
+  _addTransaction(String title, double value) {
+    final newTransaction = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+  }
+
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return TransactionForm(onSubmit: _addTransaction);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +76,33 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => _openTransactionFormModal(context),
+          )
+        ],
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               width: double.infinity,
               child: Card(
                 child: Text('Grafico'),
               ),
             ),
-            TransactionUser(),
+            TransactionList(transactions: _transactions)
           ],
         ),
       ),
+      floatingActionButton: ClipOval(
+        child: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () => _openTransactionFormModal(context),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
