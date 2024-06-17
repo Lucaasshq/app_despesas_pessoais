@@ -14,7 +14,10 @@ class ExpensesAppp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blue,
+            background: Colors.white,
+          ),
           useMaterial3: true),
     );
   }
@@ -30,7 +33,7 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Despesas Pessoais'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body:  const SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(

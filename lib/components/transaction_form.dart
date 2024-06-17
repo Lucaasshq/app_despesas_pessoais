@@ -26,6 +26,7 @@ class TransactionForm extends StatelessWidget {
             ),
             TextField(
               controller: valueController,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
               onChanged: (value) => value = value,
               decoration: const InputDecoration(
                 labelText: 'R\$',
