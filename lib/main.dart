@@ -17,11 +17,20 @@ class ExpensesAppp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.white,
             background: Colors.white,
+            secondary: Colors.purple,
+            onPrimary: Colors.amber),
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-          useMaterial3: true),
+        ),
+      ),
     );
   }
 }
@@ -60,6 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+    //? Função que fecha o modal após add a transação
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -74,10 +85,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text(
+          'Despesas Pessoais',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         actions: <Widget>[
           IconButton(
+            color: Theme.of(context).colorScheme.background,
             icon: const Icon(Icons.add),
             onPressed: () => _openTransactionFormModal(context),
           )
@@ -98,8 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: ClipOval(
         child: FloatingActionButton(
-          child: const Icon(Icons.add),
           onPressed: () => _openTransactionFormModal(context),
+          backgroundColor: Theme.of(context).colorScheme.onPrimary,
+          child: const Icon(Icons.add),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
