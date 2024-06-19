@@ -3,6 +3,7 @@ import './components/transaction_list.dart';
 import 'package:flutter/material.dart';
 import './models/transaction.dart';
 import 'dart:math';
+import './components/chart.dart';
 
 void main() {
   runApp(const ExpensesAppp());
@@ -105,13 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const SizedBox(
-              width: double.infinity,
-              child: Card(
-                child: Text('Grafico'),
-              ),
+            const Chart(
+              recentTransaction: [],
             ),
-            TransactionList(transactions: _transactions)
+            TransactionList(transactions: _transactions),
           ],
         ),
       ),
