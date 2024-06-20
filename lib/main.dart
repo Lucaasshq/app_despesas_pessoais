@@ -45,20 +45,31 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    /* 
+    Transaction(
+      id: 't1',
+      title: 'Conta Antiga',
+      value: 400,
+      date: DateTime.now().subtract(Duration(days: 33)),
+    ),
     Transaction(
       id: 't1',
       title: 'Novo Tênis de corrida',
       value: 310.76,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 3)),
     ),
     Transaction(
       id: 't2',
       title: 'Conta de Luz',
       value: 211.30,
-      date: DateTime.now(),
-    ) */
+      date: DateTime.now().subtract(Duration(days: 4)),
+    )
   ];
+
+  List<Transaction> get _recenteTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
+    }).toList();
+  }
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -106,8 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const Chart(
-              recentTransaction: [],
+            Chart(
+              recentTransaction: _recenteTransactions,
             ),
             TransactionList(transactions: _transactions),
           ],
