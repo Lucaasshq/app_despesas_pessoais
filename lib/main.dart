@@ -18,11 +18,17 @@ class ExpensesAppp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       theme: ThemeData(
+        textTheme: const TextTheme(
+            titleLarge: TextStyle(
+                color: Colors.white,
+                /* fontWeight: FontWeight.bold, */
+                fontFamily: 'OpenSans')),
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.white,
-            background: Colors.white,
-            secondary: Colors.purple,
-            onPrimary: Colors.amber),
+          seedColor: Colors.white,
+          primary: Colors.white,
+          secondary: Colors.purple,
+          onPrimary: Colors.amber,
+        ),
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
@@ -49,19 +55,19 @@ class _MyHomePageState extends State<MyHomePage> {
       id: 't1',
       title: 'Conta Antiga',
       value: 400,
-      date: DateTime.now().subtract(Duration(days: 33)),
+      date: DateTime.now().subtract(const Duration(days: 33)),
     ),
     Transaction(
       id: 't1',
       title: 'Novo Tênis de corrida',
       value: 310.76,
-      date: DateTime.now().subtract(Duration(days: 3)),
+      date: DateTime.now().subtract(const Duration(days: 3)),
     ),
     Transaction(
       id: 't2',
       title: 'Conta de Luz',
       value: 211.30,
-      date: DateTime.now().subtract(Duration(days: 4)),
+      date: DateTime.now().subtract(const Duration(days: 4)),
     )
   ];
 
