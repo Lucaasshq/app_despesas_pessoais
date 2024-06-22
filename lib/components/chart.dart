@@ -1,5 +1,4 @@
 import 'package:app_despesas_pessoais/components/chart_bar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
@@ -51,7 +50,7 @@ class Chart extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 2,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
