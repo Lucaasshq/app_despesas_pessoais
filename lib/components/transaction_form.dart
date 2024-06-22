@@ -13,19 +13,27 @@ class TransactionForm extends StatefulWidget {
 }
 
 class _TransactionFormState extends State<TransactionForm> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
 
-  final valueController = TextEditingController();
+  final _valueController = TextEditingController();
 
   _submitForm() {
-    final title = titleController.text;
-    final value = double.tryParse(valueController.text) ?? 0.0;
+    final title = _titleController.text;
+    final value = double.tryParse(_valueController.text) ?? 0.0;
 
     if (title.isEmpty || value <= 0) {
       return;
     }
 
     widget.onSubmit(title, value);
+  }
+
+  _showDatePicker() {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019),
+        lastDate: DateTime.now());
   }
 
   @override
@@ -37,14 +45,14 @@ class _TransactionFormState extends State<TransactionForm> {
         child: Column(
           children: [
             TextField(
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitForm(),
               decoration: const InputDecoration(
                 labelText: 'Título',
               ),
             ),
             TextField(
-              controller: valueController,
+              controller: _valueController,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               onSubmitted: (_) => _submitForm(),
@@ -59,7 +67,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 children: [
                   const Text('Nenhuma data selecionada'),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: _showDatePicker,
                     child: const Text(
                       'Selecionar Data',
                       style: TextStyle(
@@ -74,15 +82,15 @@ class _TransactionFormState extends State<TransactionForm> {
               children: [
                 ElevatedButton(
                     onPressed: _submitForm,
-                    child: Text(
-                      'Nova Transação',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.purple))),
+                            MaterialStateProperty.all(Colors.purple)),
+                    child: const Text(
+                      'Nova Transação',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )),
               ],
             )
           ],

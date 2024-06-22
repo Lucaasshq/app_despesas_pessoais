@@ -25,7 +25,7 @@ class ExpensesAppp extends StatelessWidget {
                 fontFamily: 'OpenSans')),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.white,
-          primary: Colors.white,
+          primary: Colors.purple,
           secondary: Colors.purple,
           onPrimary: Colors.amber,
         ),
