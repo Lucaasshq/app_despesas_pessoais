@@ -50,26 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
-    /* Transaction(
-      id: 't1',
-      title: 'Conta Antiga',
-      value: 400,
-      date: DateTime.now().subtract(const Duration(days: 33)),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Novo Tênis de corrida',
-      value: 310.76,
-      date: DateTime.now().subtract(const Duration(days: 3)),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta de Luz',
-      value: 211.30,
-      date: DateTime.now().subtract(const Duration(days: 4)),
-    ) */
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recenteTransactions {
     return _transactions.where((tr) {
@@ -107,32 +88,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Despesas Pessoais',
-          style: TextStyle(
+    final appBar = AppBar(
+      title: Text(
+        'Despesas Pessoais',
+        style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
-          ),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        actions: <Widget>[
-          IconButton(
-            color: Theme.of(context).colorScheme.background,
-            icon: const Icon(Icons.add),
-            onPressed: () => _openTransactionFormModal(context),
-          )
-        ],
+            fontSize: 20 * MediaQuery.textScalerOf(context).scale(1)),
       ),
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      actions: <Widget>[
+        IconButton(
+          color: Theme.of(context).colorScheme.background,
+          icon: const Icon(Icons.add),
+          onPressed: () => _openTransactionFormModal(context),
+        )
+      ],
+    );
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Chart(
-              recentTransaction: _recenteTransactions,
-            ),
-            TransactionList(
-                transactions: _transactions, onRemove: _removeTransaction),
+            SizedBox(
+                height: availableHeight * 0.23,
+                child: Chart(recentTransaction: _recenteTransactions)),
+            SizedBox(
+              height: availableHeight * 0.77,
+              child: TransactionList(
+                  transactions: _transactions, onRemove: _removeTransaction),
+            )
           ],
         ),
       ),
