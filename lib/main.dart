@@ -51,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    Transaction(
+    /* Transaction(
       id: 't1',
       title: 'Conta Antiga',
       value: 400,
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Conta de Luz',
       value: 211.30,
       date: DateTime.now().subtract(const Duration(days: 4)),
-    )
+    ) */
   ];
 
   List<Transaction> get _recenteTransactions {
@@ -77,19 +77,24 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
-      id: Random().nextDouble().toString(),
-      title: title,
-      value: value,
-      date: DateTime.now(),
-    );
+        id: Random().nextDouble().toString(),
+        title: title,
+        value: value,
+        date: date);
 
     setState(() {
       _transactions.add(newTransaction);
     });
     //? Função que fecha o modal após add a transação
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -126,7 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Chart(
               recentTransaction: _recenteTransactions,
             ),
-            TransactionList(transactions: _transactions),
+            TransactionList(
+                transactions: _transactions, onRemove: _removeTransaction),
           ],
         ),
       ),
